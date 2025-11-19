@@ -1,0 +1,25 @@
+name: CI - Pruebas y Construcción
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Instalar Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Instalar dependencias
+        run: npm install
+      - name: Ejecutar pruebas
+        run: npm test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Construir app
+        run: echo "🏗 Construyendo la app..."
