@@ -1,0 +1,19 @@
+name: CD - Staging
+
+on:
+  push:
+    branches: [ staging ]
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Desplegar en Netlify (Staging)
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './'
+          production-branch: staging
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_STAGING }}
